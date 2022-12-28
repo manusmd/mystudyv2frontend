@@ -1,16 +1,22 @@
 import { Flex, FormControl, FormLabel, Input, Spacer, VStack } from '@chakra-ui/react';
 import { Button, Card, CardBody, CardFooter, CardTitle, Form } from '@saas-ui/react';
 import logo from '/MyStudy.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useLogin from '../../hooks/useLogin';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login } = useLogin();
+  const { login, success, isLoading } = useLogin();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) navigate('/');
+  }, [success]);
 
   const submitHandler = () => {
-    login(username, password, '/');
+    login(username, password);
   };
 
   return (
@@ -46,6 +52,7 @@ export default function Login() {
           </CardBody>
           <CardFooter>
             <Button
+              isLoading={isLoading}
               type={'submit'}
               colorScheme={'blue'}
               variant={'solid'}
