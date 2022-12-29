@@ -3,9 +3,7 @@ import Cookies from 'universal-cookie';
 import { EmployeeType, StudentType, TeacherType, UserType } from '../types/UserTypes';
 
 export default function useUser() {
-  const [user, setUser] = useState<(UserType & EmployeeType & TeacherType & StudentType) | null>(
-    null,
-  );
+  const [user, setUser] = useState<UserType & EmployeeType & TeacherType & StudentType>();
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -21,5 +19,11 @@ export default function useUser() {
     fetchUser();
   }, []);
 
-  return { user };
+  const isLoggedIn = () => {
+    if (cookies.get('jwt_authorization')) {
+      return true;
+    }
+    return false;
+  };
+  return { user, isLoggedIn };
 }

@@ -1,7 +1,8 @@
+import Topbar from '../../components/Topbar/Topbar';
+import useUser from '../../hooks/useUser';
+
 export default function Dashboard() {
-  return (
-    <>
-      <div>Dashboard</div>
-    </>
-  );
+  const { user } = useUser();
+
+  return <>{user && <Topbar user={user} />}</>;
 }

@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Protected from './components/Protected';
 import Dashboard from './pages/Dashboard/Dasboard';
 import Login from './pages/Login/Login';
 
@@ -6,7 +7,11 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Dashboard />,
+      element: (
+        <Protected>
+          <Dashboard />
+        </Protected>
+      ),
     },
     {
       path: '/login',
