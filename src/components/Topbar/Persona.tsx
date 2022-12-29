@@ -1,11 +1,25 @@
-import { Avatar, forwardRef, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  Avatar,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Spacer,
+  Text,
+} from '@chakra-ui/react';
 import {
   PersonaContainer,
   PersonaDetails,
   PersonaLabel,
   PersonaSecondaryLabel,
 } from '@saas-ui/react';
-import { useRef } from 'react';
+import { AiOutlineLogout } from 'react-icons/ai';
+import { MdWavingHand } from 'react-icons/md';
+import useLogin from '../../hooks/useLogin';
+import PersonaDropdown from './PersonaDropdown';
+
 import styles from './styles/Persona.module.css';
 
 type PersonaProps = {
@@ -19,6 +33,8 @@ export default function Persona({ firstName, lastName, roles }: PersonaProps) {
 
   if (roles.includes('ROLE_ADMIN')) {
     role = 'Admin';
+  } else if (roles.includes('ROLE_MODERATOR')) {
+    role = 'Employee';
   } else if (roles.includes('ROLE_TEACHER')) {
     role = 'Teacher';
   } else if (roles.includes('ROLE_STUDENT')) {
@@ -28,16 +44,18 @@ export default function Persona({ firstName, lastName, roles }: PersonaProps) {
   return (
     <PersonaContainer size='sm'>
       <PersonaDetails>
-        <PersonaLabel className={styles.details}>{`${firstName} ${lastName}`}</PersonaLabel>
+        {role == 'Admin' ? (
+          <PersonaLabel className={styles.details}>Admin</PersonaLabel>
+        ) : (
+          <PersonaLabel className={styles.details}>{`${firstName} ${lastName}`}</PersonaLabel>
+        )}{' '}
         <PersonaSecondaryLabel>{role}</PersonaSecondaryLabel>
       </PersonaDetails>
       <Menu>
-        <MenuButton style={{ all: 'unset' }}>
-          <Avatar name={`${firstName} ${lastName}`} />
+        <MenuButton className={styles.menuButton}>
+          {role == 'Admin' ? <Avatar name='Admin' /> : <Avatar name={`${firstName} ${lastName}`} />}
         </MenuButton>
-        <MenuList>
-          <MenuItem>Logout</MenuItem>
-        </MenuList>
+        <PersonaDropdown firstName={role == 'Admin' ? 'Admin' : firstName} />
       </Menu>
     </PersonaContainer>
   );

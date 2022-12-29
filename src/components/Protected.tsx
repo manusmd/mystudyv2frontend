@@ -1,22 +1,21 @@
 import { ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
+import useUser from '../hooks/useUser';
 
 type ProtectedProps = {
   children: ReactNode;
 };
 
 export default function Protected({ children }: ProtectedProps) {
-  const cookies = new Cookies();
-  const jwt = cookies.get('jwt_authorization');
+  const { isLoggedIn, error } = useUser();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!jwt) {
+    if (!isLoggedIn || error) {
       navigate('/login');
     }
-  }, [jwt]);
+  }, [isLoggedIn]);
 
   return <>{children}</>;
 }

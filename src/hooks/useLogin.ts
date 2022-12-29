@@ -24,7 +24,8 @@ export default function useLogin() {
       setLoading(false);
       setSuccess(true);
     } catch (error: any) {
-      setError(error.message);
+      setError('Bad credentials');
+      setLoading(false);
     }
   };
 

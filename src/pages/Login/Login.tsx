@@ -1,4 +1,12 @@
-import { Flex, FormControl, FormLabel, Input, Spacer, VStack } from '@chakra-ui/react';
+import {
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Spacer,
+  VStack,
+} from '@chakra-ui/react';
 import { Button, Card, CardBody, CardFooter, CardTitle, Form } from '@saas-ui/react';
 import logo from '/MyStudy.png';
 import { useEffect, useState } from 'react';
@@ -8,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login, success, isLoading } = useLogin();
+  const { login, success, isLoading, error } = useLogin();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,22 +39,33 @@ export default function Login() {
         <Form onSubmit={submitHandler}>
           <CardBody>
             <VStack spacing={'5'} justifyContent={'center'}>
-              <FormControl id='email' isRequired>
-                <FormLabel>Username</FormLabel>
-                <Input
-                  value={username}
-                  placeholder={'Username'}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </FormControl>
-              <FormControl id='password' isRequired>
-                <FormLabel>Password</FormLabel>
-                <Input
-                  type={'password'}
-                  value={password}
-                  placeholder={'Password'}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              <FormControl isInvalid={error ? true : false}>
+                <FormControl id='email' isRequired>
+                  <FormLabel>Username</FormLabel>
+                  <Input
+                    value={username}
+                    placeholder={'Username'}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </FormControl>
+                <FormControl id='password' isRequired>
+                  <FormLabel>Password</FormLabel>
+                  <Input
+                    type={'password'}
+                    value={password}
+                    placeholder={'Password'}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </FormControl>
+                <FormErrorMessage
+                  fontSize={'md'}
+                  maxWidth={'fit-content'}
+                  padding={'0.5rem'}
+                  rounded={'base'}
+                  bg={'red.100'}
+                >
+                  {error}
+                </FormErrorMessage>
               </FormControl>
             </VStack>
           </CardBody>

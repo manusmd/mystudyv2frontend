@@ -2,3 +2,11 @@
   font-size: 1rem;
   padding-right: 1rem;
 }
+
+.menuButton {
+  border: none;
+}
+
+.menuButton:focus {
+  outline: none;
+}
