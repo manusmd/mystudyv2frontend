@@ -6,12 +6,16 @@ import {
   Input,
   Spacer,
   VStack,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
 } from '@chakra-ui/react';
-import { Button, Card, CardBody, CardFooter, CardTitle, Form } from '@saas-ui/react';
 import logo from '/MyStudy.png';
 import { useEffect, useState } from 'react';
 import useLogin from '../../hooks/useLogin';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
@@ -33,12 +37,12 @@ export default function Login() {
         <Flex justifyContent={'center'}>
           <img src={logo} alt='logo' width={'30%'} />
         </Flex>
-        <CardTitle fontSize={'3xl'} textAlign={'center'}>
+        <CardHeader fontSize={'3xl'} textAlign={'center'}>
           Welcome to MyStudy
-        </CardTitle>
+        </CardHeader>
         <Form onSubmit={submitHandler}>
           <CardBody>
-            <VStack spacing={'5'} justifyContent={'center'}>
+            <VStack justifyContent={'center'}>
               <FormControl isInvalid={error ? true : false}>
                 <FormControl id='email' isRequired>
                   <FormLabel>Username</FormLabel>
@@ -48,6 +52,7 @@ export default function Login() {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </FormControl>
+                <Spacer height={'1rem'} />
                 <FormControl id='password' isRequired>
                   <FormLabel>Password</FormLabel>
                   <Input
@@ -69,7 +74,7 @@ export default function Login() {
               </FormControl>
             </VStack>
           </CardBody>
-          <CardFooter>
+          <CardFooter gap={'1rem'}>
             <Button
               isLoading={isLoading}
               type={'submit'}
@@ -80,8 +85,7 @@ export default function Login() {
             >
               Login
             </Button>
-            <Spacer />
-            <Button variant={'secondary'} size={'md'} width={'50%'}>
+            <Button variant={'outline'} size={'md'} width={'50%'}>
               Sign Up
             </Button>
           </CardFooter>

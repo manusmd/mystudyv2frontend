@@ -1,3 +1,10 @@
+import { Text } from '@chakra-ui/react';
+import Page from '../../components/Page/Page';
+
 export default function Teachers() {
-  return <h1>Teachers</h1>;
+  return (
+    <Page title='Teachers'>
+      <Text>Teachers Content</Text>
+    </Page>
+  );
 }
