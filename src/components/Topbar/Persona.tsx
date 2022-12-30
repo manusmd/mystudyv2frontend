@@ -1,23 +1,10 @@
-import {
-  Avatar,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  Spacer,
-  Text,
-} from '@chakra-ui/react';
+import { Avatar, Menu, MenuButton } from '@chakra-ui/react';
 import {
   PersonaContainer,
   PersonaDetails,
   PersonaLabel,
   PersonaSecondaryLabel,
 } from '@saas-ui/react';
-import { AiOutlineLogout } from 'react-icons/ai';
-import { MdWavingHand } from 'react-icons/md';
-import useLogin from '../../hooks/useLogin';
 import PersonaDropdown from './PersonaDropdown';
 
 import styles from './styles/Persona.module.css';

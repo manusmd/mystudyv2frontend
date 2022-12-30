@@ -2,13 +2,10 @@ import { Flex, Heading, Spacer } from '@chakra-ui/react';
 import Logo from '/MyStudy_small.png';
 import styles from './styles/Topbar.module.css';
 import Persona from './Persona';
-import { EmployeeType, StudentType, TeacherType, UserType } from '../../types/UserTypes';
+import useUser from '../../hooks/useUser';
 
-type TopbarProps = {
-  user: UserType & EmployeeType & TeacherType & StudentType;
-};
-
-export default function Topbar({ user }: TopbarProps) {
+export default function Topbar() {
+  const { user } = useUser();
   return (
     <Flex className={styles.container}>
       <img src={Logo} alt='MyStudy Logo' className={styles.logo} />

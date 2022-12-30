@@ -20,7 +20,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (success) navigate('/');
+    if (success) navigate('/dashboard');
   }, [success]);
 
   const submitHandler = () => {
