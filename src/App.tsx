@@ -1,4 +1,4 @@
-import { Loader } from '@saas-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Protected from './components/Protected';
 import AppShell from './pages/AppShell/AppShell';
@@ -49,5 +49,10 @@ export default function App() {
       element: <Login />,
     },
   ]);
-  return <RouterProvider router={router} />;
+
+  return (
+    <ChakraProvider>
+      <RouterProvider router={router} />
+    </ChakraProvider>
+  );
 }
