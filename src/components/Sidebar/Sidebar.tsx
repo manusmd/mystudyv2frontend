@@ -5,12 +5,14 @@ import { GiTeacher } from 'react-icons/gi';
 import { IoMdSchool } from 'react-icons/io';
 import { GrUserWorker } from 'react-icons/gr';
 import SidebarItem from './SidebarItem';
-import styles from './Sidebar.module.css';
+import styles from './styles/Sidebar.module.css';
 import { motion, useAnimation } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState<'small' | 'large'>('large');
   const control = useAnimation();
+  const location = useLocation();
 
   useEffect(() => {
     if (navSize == 'small') {
@@ -44,11 +46,41 @@ export default function Sidebar() {
           size='lg'
         />
       </Box>
-      <SidebarItem navSize={navSize} icon={FiHome} title='Dashboard' path={''} />
-      <SidebarItem navSize={navSize} icon={FiCalendar} title='Events' path={''} />
-      <SidebarItem navSize={navSize} icon={GrUserWorker} title='Employees' active path={''} />
-      <SidebarItem navSize={navSize} icon={GiTeacher} title='Teachers' path={''} />
-      <SidebarItem navSize={navSize} icon={IoMdSchool} title='Students' path={''} />
+      <SidebarItem
+        navSize={navSize}
+        icon={FiHome}
+        title='Dashboard'
+        path='dashboard'
+        active={location.pathname == '/dashboard' && true}
+      />
+      <SidebarItem
+        navSize={navSize}
+        icon={FiCalendar}
+        title='Events'
+        path='events'
+        active={location.pathname == '/events' && true}
+      />
+      <SidebarItem
+        navSize={navSize}
+        icon={GrUserWorker}
+        title='Employees'
+        path='employees'
+        active={location.pathname == '/employees' && true}
+      />
+      <SidebarItem
+        navSize={navSize}
+        icon={GiTeacher}
+        title='Teachers'
+        path='teachers'
+        active={location.pathname == '/teachers' && true}
+      />
+      <SidebarItem
+        navSize={navSize}
+        icon={IoMdSchool}
+        title='Students'
+        path='students'
+        active={location.pathname == '/students' && true}
+      />
     </Flex>
   );
 }

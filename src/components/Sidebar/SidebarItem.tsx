@@ -2,6 +2,7 @@ import { Flex, Icon, Link, Menu, MenuButton, Text } from '@chakra-ui/react';
 import { motion, useAnimation } from 'framer-motion';
 import { useEffect } from 'react';
 import { IconType } from 'react-icons';
+import { Link as RouterLink } from 'react-router-dom';
 
 type SidebarItemProps = {
   navSize: 'small' | 'large';
@@ -24,7 +25,8 @@ export default function SidebarItem({ navSize, icon, title, active, path }: Side
     <Flex mt='15px' flexDir='column' w='100%' h='48px'>
       <Menu>
         <Link
-          href={path}
+          as={RouterLink}
+          to={path}
           display='flex'
           backgroundColor={active ? 'blue.100' : 'none'}
           p={2.5}
@@ -36,7 +38,7 @@ export default function SidebarItem({ navSize, icon, title, active, path }: Side
         >
           <MenuButton style={{ all: 'unset' }} textAlign='center'>
             <Flex alignItems={'center'} pl={navSize == 'small' ? '0' : '5px'}>
-              <Icon as={icon} fontSize='xl' color={active ? '#82AAAD' : 'gray.500'} />
+              <Icon as={icon} fontSize='xl' />
               <Text
                 as={motion.p}
                 animate={controlText}

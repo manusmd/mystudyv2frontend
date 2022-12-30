@@ -1,18 +1,16 @@
+import { Flex } from '@chakra-ui/react';
+import { Outlet } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Topbar from '../../components/Topbar/Topbar';
-import useUser from '../../hooks/useUser';
 
-export default function Dashboard() {
-  const { user } = useUser();
-
+export default function AppShell() {
   return (
     <>
-      {user && (
-        <>
-          <Topbar user={user} />
-          <Sidebar />
-        </>
-      )}
+      <Topbar />
+      <Flex as='main' direction='row' w='100%' h='100%' overflow='hidden'>
+        <Sidebar />
+        <Outlet />
+      </Flex>
     </>
   );
 }
