@@ -1,51 +1,54 @@
-import { Flex, IconButton } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Flex, IconButton } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { FiCalendar, FiHome, FiMenu } from 'react-icons/fi';
 import { GiTeacher } from 'react-icons/gi';
 import { IoMdSchool } from 'react-icons/io';
 import { GrUserWorker } from 'react-icons/gr';
 import SidebarItem from './SidebarItem';
+import styles from './Sidebar.module.css';
+import { motion, useAnimation } from 'framer-motion';
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState<'small' | 'large'>('large');
+  const control = useAnimation();
+
+  useEffect(() => {
+    if (navSize == 'small') {
+      control.start({ width: '75px' });
+    } else {
+      control.start({ width: '200px' });
+    }
+  }, [navSize]);
+
   return (
     <Flex
+      as={motion.div}
+      animate={control}
       pos='sticky'
       h='92vh'
       boxShadow='0 4px 12px 0 rgba(0,0,0,0.05)'
-      w={navSize == 'small' ? '75px' : '300px'}
+      w={navSize == 'small' ? '75px' : '200px'}
       flexDir='column'
-      justifyContent='space-between'
+      pt='1rem'
+      pl='13.5px'
+      pr='13.5px'
+      gap='0.5rem'
+      alignItems={'flex-start'}
     >
-      <Flex p='13px' flexDir='column' alignItems='flex-start' as='nav'>
+      <Box>
         <IconButton
-          style={{
-            outline: 'none',
-            border: 'none',
-          }}
-          size='lg'
-          background='none'
-          _hover={{
-            outline: 'none',
-            border: 'none',
-            bg: 'gray.100',
-          }}
+          className={styles.menuButton}
+          aria-label='Menu'
           icon={<FiMenu />}
-          aria-label={'Icon'}
-          onClick={() => {
-            if (navSize === 'large') {
-              changeNavSize('small');
-            } else {
-              changeNavSize('large');
-            }
-          }}
+          onClick={() => changeNavSize(navSize == 'small' ? 'large' : 'small')}
+          size='lg'
         />
-        <SidebarItem navSize={navSize} icon={FiHome} title='Dashboard' />
-        <SidebarItem navSize={navSize} icon={FiCalendar} title='Event Plan' active />
-        <SidebarItem navSize={navSize} icon={GrUserWorker} title='Employees' />
-        <SidebarItem navSize={navSize} icon={GiTeacher} title='Teachers' />
-        <SidebarItem navSize={navSize} icon={IoMdSchool} title='Students' />
-      </Flex>
+      </Box>
+      <SidebarItem navSize={navSize} icon={FiHome} title='Dashboard' path={''} />
+      <SidebarItem navSize={navSize} icon={FiCalendar} title='Events' path={''} />
+      <SidebarItem navSize={navSize} icon={GrUserWorker} title='Employees' active path={''} />
+      <SidebarItem navSize={navSize} icon={GiTeacher} title='Teachers' path={''} />
+      <SidebarItem navSize={navSize} icon={IoMdSchool} title='Students' path={''} />
     </Flex>
   );
 }

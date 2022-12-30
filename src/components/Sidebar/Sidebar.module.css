@@ -1,0 +1,14 @@
+.menuButton {
+  outline: none;
+  border: none;
+}
+
+.menuButton:hover {
+  outline: none;
+  border: none;
+}
+
+.menuButton:focus {
+  outline: none;
+  border: none;
+}
