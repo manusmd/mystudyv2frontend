@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Protected from './components/Protected';
-import Dashboard from './pages/Dashboard/Dasboard';
+import Dashboard from './pages/AppShell/AppShell';
 import Login from './pages/Login/Login';
 
 export default function App() {
