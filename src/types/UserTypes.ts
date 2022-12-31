@@ -1,3 +1,5 @@
+export type User = (UserType & EmployeeType & TeacherType & StudentType) | undefined | null;
+
 export interface UserType {
   id: string;
   username: string;
