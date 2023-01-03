@@ -1,10 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Cookies from 'universal-cookie';
+import { AuthContext } from '../context/AuthContext';
+import { getUser } from '../utils/api';
 
-export default function useLogin() {
+export default function useAuth() {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
+  const { setUser } = useContext(AuthContext);
+
   const cookies = new Cookies();
 
   const login = async (username: string, password: string) => {
@@ -19,19 +23,27 @@ export default function useLogin() {
         body: JSON.stringify(loginData),
       });
       const data = await res.json();
+      localStorage.setItem('user', JSON.stringify(data));
       cookies.set('jwt_authorization', data.token);
-
-      setLoading(false);
+      const fetchedUser = await getUser();
+      setUser(fetchedUser);
       setSuccess(true);
-    } catch (error: any) {
-      setError('Bad credentials');
+    } catch (error: unknown) {
+      setError('Please sign up first!');
+      setSuccess(false);
+    } finally {
       setLoading(false);
     }
   };
 
   const logout = () => {
     cookies.remove('jwt_authorization');
+    setUser(null);
   };
 
-  return { login, logout, isLoading, error, success };
+  const authenticated = () => {
+    return !!cookies.get('jwt_authorization');
+  };
+
+  return { login, logout, isLoading, error, success, authenticated };
 }

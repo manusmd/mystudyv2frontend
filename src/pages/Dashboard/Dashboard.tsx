@@ -4,6 +4,7 @@ import useUser from '../../hooks/useUser';
 
 export default function Dashboard() {
   const { user } = useUser();
+
   return (
     <Page title={`Hello ${user?.firstName ? user.firstName : ''}`}>
       <Text>Dashboard Content</Text>
