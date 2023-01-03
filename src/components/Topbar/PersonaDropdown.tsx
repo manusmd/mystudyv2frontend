@@ -2,7 +2,7 @@ import { Flex, MenuDivider, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { MdWavingHand } from 'react-icons/md';
 import { AiOutlineLogout } from 'react-icons/ai';
 import styles from './styles/PersonaDropdown.module.css';
-import useLogin from '../../hooks/useLogin';
+import useLogin from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 type PersonaDropdownProps = {
