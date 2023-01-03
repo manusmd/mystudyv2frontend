@@ -10,8 +10,6 @@ export default function Students() {
   const { students, filter } = useStudents();
   const query = useQuery('students', getStudents);
 
-  console.log(query);
-
   const columns = [
     {
       id: 'firstName',
