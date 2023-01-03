@@ -1,27 +1,29 @@
 import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
   Spacer,
+  Text,
   VStack,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
 } from '@chakra-ui/react';
-import logo from '/MyStudy.png';
 import { useContext, useEffect, useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
 import { AuthContext } from '../../context/AuthContext';
+import useAuth from '../../hooks/useAuth';
+import logo from '/MyStudy.png';
 
-export default function Login() {
+export default function Signup() {
   const [username, setUsername] = useState<string>('');
+  const [mail, setMail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login, isLoading, error, authenticated } = useAuth();
+  const { isLoading, authenticated, signup, error, success } = useAuth();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
@@ -35,10 +37,10 @@ export default function Login() {
       }
     };
     checkAuth();
-  }, [authenticated]);
+  }, []);
 
   const submitHandler = async () => {
-    await login(username, password);
+    await signup(username, mail, password);
   };
 
   return (
@@ -48,30 +50,40 @@ export default function Login() {
           <img src={logo} alt='logo' width={'30%'} />
         </Flex>
         <CardHeader fontSize={'3xl'} textAlign={'center'}>
-          Welcome to MyStudy
+          MyStudy Signup
         </CardHeader>
         <Form onSubmit={submitHandler}>
           <CardBody>
             <VStack justifyContent={'center'}>
               <FormControl isInvalid={error ? true : false}>
-                <FormControl id='email' isRequired>
+                <FormControl id='username' isRequired>
                   <FormLabel>Username</FormLabel>
                   <Input
                     value={username}
-                    placeholder={'Username'}
+                    placeholder='Username'
                     onChange={(e) => setUsername(e.target.value)}
+                  />
+                </FormControl>
+                <Spacer height={'1rem'} />
+                <FormControl id='email' isRequired>
+                  <FormLabel>Email</FormLabel>
+                  <Input
+                    value={mail}
+                    placeholder='Email'
+                    onChange={(e) => setMail(e.target.value)}
                   />
                 </FormControl>
                 <Spacer height={'1rem'} />
                 <FormControl id='password' isRequired>
                   <FormLabel>Password</FormLabel>
                   <Input
-                    type={'password'}
+                    type='password'
                     value={password}
-                    placeholder={'Password'}
+                    placeholder='Password'
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </FormControl>
+                <Spacer height={'1rem'} />
                 <FormErrorMessage
                   fontSize={'md'}
                   maxWidth={'fit-content'}
@@ -81,27 +93,32 @@ export default function Login() {
                 >
                   {error}
                 </FormErrorMessage>
+                {success && (
+                  <Text fontSize={'md'} color={'green.500'} p='1rem'>
+                    Successfully registered!
+                  </Text>
+                )}
               </FormControl>
             </VStack>
           </CardBody>
           <CardFooter gap={'1rem'}>
             <Button
               isLoading={isLoading}
-              type={'submit'}
-              colorScheme={'blue'}
-              variant={'solid'}
+              type='submit'
+              colorScheme='blue'
+              variant='solid'
               size={'md'}
               width={'50%'}
             >
-              Login
+              Signup
             </Button>
             <Button
               variant={'outline'}
               size={'md'}
               width={'50%'}
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/login')}
             >
-              Sign Up
+              Login
             </Button>
           </CardFooter>
         </Form>

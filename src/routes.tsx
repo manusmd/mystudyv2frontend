@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Employees from './pages/Employees/Employees';
 import Events from './pages/Events/Events';
 import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 import Students from './pages/Students/Students';
 import Teachers from './pages/Teachers/Teachers';
 
@@ -67,5 +68,9 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/signup',
+    element: <Signup />,
   },
 ]);
