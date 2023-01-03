@@ -13,6 +13,7 @@ export const isAuthorized = (user: User, path: string) => {
     if (path === 'teachers') return true;
   }
   if (user.roles.includes('ROLE_TEACHER')) {
+    if (path === 'dashboard') return true;
     if (path === 'events') return true;
     if (path === 'students') return true;
   }

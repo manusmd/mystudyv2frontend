@@ -54,7 +54,7 @@ export default function Sidebar() {
           navSize={navSize}
           icon={FiHome}
           title='Dashboard'
-          path='dashboard'
+          path='/'
           active={location.pathname == '/dashboard' && true}
         />
       )}

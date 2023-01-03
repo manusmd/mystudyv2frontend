@@ -13,22 +13,32 @@ import {
   CardHeader,
 } from '@chakra-ui/react';
 import logo from '/MyStudy.png';
-import { useEffect, useState } from 'react';
-import useLogin from '../../hooks/useLogin';
+import { useContext, useEffect, useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login, success, isLoading, error } = useLogin();
+  const { login, isLoading, error, authenticated } = useAuth();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    if (success) navigate('/dashboard');
-  }, [success]);
+    const checkAuth = async () => {
+      if (authenticated()) {
+        if (user?.roles?.includes('ROLE_STUDENT')) {
+          // TODO: navigate to student dashboard
+          navigate('/tbd');
+        } else navigate('/');
+      }
+    };
+    checkAuth();
+  }, [authenticated]);
 
-  const submitHandler = () => {
-    login(username, password);
+  const submitHandler = async () => {
+    await login(username, password);
   };
 
   return (
