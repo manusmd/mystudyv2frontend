@@ -1,9 +1,10 @@
 import { Text } from '@chakra-ui/react';
+import { useContext } from 'react';
 import Page from '../../components/Page/Page';
-import useUser from '../../hooks/useUser';
+import { AuthContext } from '../../context/AuthContext';
 
 export default function Dashboard() {
-  const { user } = useUser();
+  const { user } = useContext(AuthContext);
 
   return (
     <Page title={`Hello ${user?.firstName ? user.firstName : ''}`}>
