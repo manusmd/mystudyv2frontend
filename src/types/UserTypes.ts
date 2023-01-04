@@ -1,25 +1,25 @@
 export type User = (UserType & EmployeeType & TeacherType & StudentType) | undefined | null;
 
 export interface UserType {
-  id: string;
-  username: string;
+  id?: string;
+  username?: string;
   email: string;
-  roles: string[];
+  roles?: string[];
 }
 
 export interface ResourceUserType {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
-  username: string;
+  username?: string;
   street: string;
   house: string;
   city: string;
   postcode: string;
   phone: string;
-  active: boolean;
-  roles: string[];
+  active?: boolean;
+  roles?: string[];
 }
 
 export interface EmployeeType extends ResourceUserType {
@@ -32,5 +32,5 @@ export interface TeacherType extends ResourceUserType {
 }
 
 export interface StudentType extends ResourceUserType {
-  balance: number;
+  balance?: number;
 }
