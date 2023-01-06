@@ -46,7 +46,6 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
       validateForm(values).then((errors) => {
         if (Object.keys(errors).length === 0) {
           addStudent(values);
-          alert(JSON.stringify(values, null, 2));
         }
       });
     },
@@ -63,16 +62,14 @@ export default function StudentModal({ isOpen, onClose }: StudentModalProps) {
     }
   }, [message]);
 
-  console.log({ formik });
-
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size='3xl'>
+    <Modal isOpen={isOpen} onClose={onClose} size='xl'>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add student</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <StudentForm formData={formik} />
+          <StudentForm formData={formik} onClose={onClose} />
         </ModalBody>
       </ModalContent>
     </Modal>

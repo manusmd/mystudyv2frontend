@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
+import Cookies from 'universal-cookie';
 import { StudentType } from '../types/UserTypes';
 import { getStudents } from '../utils/api';
 
 export const useStudents = () => {
   const [students, setStudents] = useState<StudentType[]>([]);
-  const { data, isLoading, isSuccess } = useQuery('students', getStudents);
+  const { data, isLoading, refetch } = useQuery('students', getStudents);
   const [message, setMessage] = useState<string | null>(null);
+  const cookies = new Cookies();
 
   useEffect(() => {
     if (data) {
       setStudents(data.data);
     }
-  }, [isSuccess]);
+  }, [data]);
 
   const filter = (search: string) => {
     if (search === '') {
@@ -29,7 +31,14 @@ export const useStudents = () => {
     }
   };
 
-  const addStudent = async (student: StudentType) => {
+  const { mutate } = useMutation(addStudent, {
+    onSuccess: () => {
+      setMessage('Student added');
+      refetch();
+    },
+  });
+
+  async function addStudent(student: StudentType) {
     const newStudent = new FormData();
     newStudent.append('firstName', student.firstName);
     newStudent.append('lastName', student.lastName);
@@ -39,21 +48,17 @@ export const useStudents = () => {
     newStudent.append('city', student.city);
     newStudent.append('postcode', student.postcode);
     newStudent.append('phone', student.phone);
+    newStudent.append('roles', 'ROLE_STUDENT');
 
-    const res = await fetch('http://localhost:3000/students', {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${cookies.get('jwt_authorization')}`,
       },
       body: newStudent,
     });
     return res.json();
-  };
+  }
 
-  const { mutate } = useMutation(addStudent, {
-    onSuccess: () => {
-      setMessage('Student added');
-    },
-  });
   return { students, isLoading, filter, addStudent: mutate, message };
 };

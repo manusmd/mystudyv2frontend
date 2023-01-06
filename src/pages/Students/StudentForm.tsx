@@ -1,15 +1,26 @@
 import { Button, Flex, FormControl, FormLabel, Input, Spacer, Text } from '@chakra-ui/react';
 import { FormikProps } from 'formik';
-import { Key } from 'react';
+import { Key, useEffect } from 'react';
 import { StudentType } from '../../types/UserTypes';
 
 type StudentFormProps = {
   formData: FormikProps<StudentType>;
+  onClose: () => void;
 };
 
-export default function StudentForm({ formData }: StudentFormProps) {
+export default function StudentForm({ formData, onClose }: StudentFormProps) {
+  useEffect(() => {
+    formData.resetForm();
+  }, []);
+
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    formData.handleSubmit();
+    onClose();
+  };
+
   return (
-    <form onSubmit={formData.handleSubmit}>
+    <form onSubmit={submitHandler}>
       <Flex flexDir='column' gap='1rem' p='1rem'>
         <FormControl id='name'>
           <FormLabel>Name</FormLabel>
