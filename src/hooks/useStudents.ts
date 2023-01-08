@@ -17,23 +17,32 @@ export const useStudents = () => {
   }, [data]);
 
   const filter = (search: string) => {
-    if (search === '') {
-      setStudents(data.data);
-    } else {
-      const filterByFirstName = data.data.filter((student: StudentType) =>
-        student.firstName.toLowerCase().includes(search.toLowerCase()),
-      );
-      const filterByLastName = data.data.filter((student: StudentType) =>
-        student.lastName.toLowerCase().includes(search.toLowerCase()),
-      );
-      const filteredStudents = [...new Set([...filterByFirstName, ...filterByLastName])];
-      setStudents(filteredStudents);
-    }
+    setTimeout(() => {
+      if (search === '') {
+        setStudents(data.data);
+      } else {
+        const filterByFirstName = data.data.filter((student: StudentType) =>
+          student.firstName.toLowerCase().includes(search.toLowerCase()),
+        );
+        const filterByLastName = data.data.filter((student: StudentType) =>
+          student.lastName.toLowerCase().includes(search.toLowerCase()),
+        );
+        const filteredStudents = [...new Set([...filterByFirstName, ...filterByLastName])];
+        setStudents(filteredStudents);
+      }
+    }, 500);
   };
 
-  const { mutate } = useMutation(addStudent, {
+  const studentPost = useMutation(addStudent, {
     onSuccess: () => {
       setMessage('Student added');
+      refetch();
+    },
+  });
+
+  const studentDelete = useMutation(deleteStudent, {
+    onSuccess: () => {
+      setMessage('Student deleted');
       refetch();
     },
   });
@@ -60,5 +69,22 @@ export const useStudents = () => {
     return res.json();
   }
 
-  return { students, isLoading, filter, addStudent: mutate, message };
+  async function deleteStudent(id: string) {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${cookies.get('jwt_authorization')}`,
+      },
+    });
+    return res.json();
+  }
+
+  return {
+    students,
+    isLoading,
+    filter,
+    addStudent: studentPost.mutate,
+    deleteStudent: studentDelete.mutate,
+    message,
+  };
 };
