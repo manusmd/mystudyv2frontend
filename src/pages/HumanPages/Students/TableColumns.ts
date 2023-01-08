@@ -1,4 +1,7 @@
-export const columns = [
+import { Column } from '@saas-ui/data-table';
+import { StudentType } from '../../../types/UserTypes';
+
+export const columns: Column<StudentType>[] = [
   {
     id: 'firstName',
     Header: 'Firstname',
@@ -18,5 +21,9 @@ export const columns = [
   {
     id: 'city',
     Header: 'City',
+  },
+  {
+    id: 'balance',
+    Header: 'Balance',
   },
 ];
