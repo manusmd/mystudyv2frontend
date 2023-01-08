@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import Cookies from 'universal-cookie';
 import { StudentType } from '../types/UserTypes';
-import { getStudents } from '../utils/api';
 
 export const useStudents = () => {
   const [students, setStudents] = useState<StudentType[]>([]);
@@ -46,6 +45,16 @@ export const useStudents = () => {
       refetch();
     },
   });
+
+  async function getStudents() {
+    const cookies = new Cookies();
+    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students`, {
+      headers: {
+        Authorization: `Bearer ${cookies.get('jwt_authorization')}`,
+      },
+    });
+    return res.json();
+  }
 
   async function addStudent(student: StudentType) {
     const newStudent = new FormData();
