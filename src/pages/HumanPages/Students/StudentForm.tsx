@@ -1,7 +1,7 @@
 import { Button, Flex, FormControl, FormLabel, Input, Spacer, Text } from '@chakra-ui/react';
 import { FormikProps } from 'formik';
 import { Key, useEffect } from 'react';
-import { StudentType } from '../../types/UserTypes';
+import { StudentType } from '../../../types/UserTypes';
 
 type StudentFormProps = {
   formData: FormikProps<StudentType>;

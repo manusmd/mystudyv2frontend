@@ -8,7 +8,7 @@ import Employees from './pages/Employees/Employees';
 import Events from './pages/Events/Events';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
-import Students from './pages/Students/Students';
+import Students from './pages/HumanPages/Students/Students';
 import Teachers from './pages/Teachers/Teachers';
 
 export const router = createBrowserRouter([

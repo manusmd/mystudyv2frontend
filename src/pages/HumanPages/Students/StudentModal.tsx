@@ -10,7 +10,7 @@ import {
 import { useFormik } from 'formik';
 import StudentForm from './StudentForm';
 import * as Yup from 'yup';
-import { useStudents } from '../../hooks/useStudents';
+import { useStudents } from '../../../hooks/useStudents';
 import { useEffect } from 'react';
 
 type StudentModalProps = {
