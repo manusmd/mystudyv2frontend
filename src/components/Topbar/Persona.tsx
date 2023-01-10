@@ -16,13 +16,13 @@ export default function Persona() {
 
   let role = '';
 
-  if (user?.roles.includes('ROLE_ADMIN')) {
+  if (user?.roles?.includes('ROLE_ADMIN')) {
     role = 'Admin';
-  } else if (user?.roles.includes('ROLE_MODERATOR')) {
+  } else if (user?.roles?.includes('ROLE_MODERATOR')) {
     role = 'Employee';
-  } else if (user?.roles.includes('ROLE_TEACHER')) {
+  } else if (user?.roles?.includes('ROLE_TEACHER')) {
     role = 'Teacher';
-  } else if (user?.roles.includes('ROLE_STUDENT')) {
+  } else if (user?.roles?.includes('ROLE_STUDENT')) {
     role = 'Student';
   }
 
