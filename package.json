@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "postinstall": "npm run build",
+    "serve-heroku": "vite --host 0.0.0.0 --port $PORT preview",
     "preview": "vite preview",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
