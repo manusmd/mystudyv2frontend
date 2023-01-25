@@ -21,21 +21,15 @@ import { AuthContext } from '../../context/AuthContext';
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login, isLoading, error, authenticated } = useAuth();
+  const { login, isLoading, error, success } = useAuth();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      if (authenticated()) {
-        if (user?.roles?.includes('ROLE_STUDENT')) {
-          // TODO: navigate to student dashboard
-          navigate('/tbd');
-        } else navigate('/');
-      }
-    };
-    checkAuth();
-  }, [authenticated]);
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   const submitHandler = async () => {
     await login(username, password);
