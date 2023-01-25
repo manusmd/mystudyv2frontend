@@ -21,7 +21,7 @@ import { AuthContext } from '../../context/AuthContext';
 export default function Login() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login, isLoading, error, success } = useAuth();
+  const { login, isLoading, error } = useAuth();
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
