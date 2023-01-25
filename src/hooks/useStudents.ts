@@ -48,7 +48,7 @@ export const useStudents = () => {
 
   async function getStudents() {
     const cookies = new Cookies();
-    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students`, {
+    const res = await fetch('/api/Students', {
       headers: {
         Authorization: `Bearer ${cookies.get('jwt_authorization')}`,
       },
@@ -68,7 +68,7 @@ export const useStudents = () => {
     newStudent.append('phone', student.phone);
     newStudent.append('roles', 'ROLE_STUDENT');
 
-    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students`, {
+    const res = await fetch('/api/Students', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${cookies.get('jwt_authorization')}`,
@@ -79,7 +79,7 @@ export const useStudents = () => {
   }
 
   async function deleteStudent(id: string) {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE}/Students/${id}`, {
+    const res = await fetch(`/api/Students/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${cookies.get('jwt_authorization')}`,

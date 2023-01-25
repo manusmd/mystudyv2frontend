@@ -15,7 +15,7 @@ export default function useAuth() {
     setLoading(true);
     const loginData = { username, password };
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/auth/signin`, {
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,6 +26,7 @@ export default function useAuth() {
       localStorage.setItem('user', JSON.stringify(data));
       cookies.set('jwt_authorization', data.token);
       const fetchedUser = await getUser();
+      console.log(fetchedUser);
       setUser(fetchedUser);
 
       setSuccess(true);
@@ -41,7 +42,7 @@ export default function useAuth() {
     setLoading(true);
     const signupData = { username, email, password };
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE}/auth/signup`, {
+      const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
