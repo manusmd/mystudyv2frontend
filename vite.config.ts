@@ -10,6 +10,7 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [react()],
     server: {
+      port: parseInt(process.env.VITE_PORT) || 3000,
       proxy: {
         '/api': {
           target: process.env.VITE_API_URL,
